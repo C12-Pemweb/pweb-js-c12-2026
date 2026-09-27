@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Mini Shopee</div>
+
+        <div class="nav-right">
+            <span id="welcome-user"></span>
+
+            <div class="cart">
+                🛒
+                <span id="cart-badge">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <h1>Product Catalog</h1>
+
+        <section class="controls">
+
+            <input
+                type="text"
+                id="search-input"
+                placeholder="Cari produk atau kategori..."
+            >
+
+            <select id="category-filter">
+                <option value="all">Semua Kategori</option>
+            </select>
+
+            <select id="sort-select">
+                <option value="default">Urutkan</option>
+                <option value="price-low">Harga Termurah</option>
+                <option value="price-high">Harga Termahal</option>
+                <option value="rating">Rating Tertinggi</option>
+            </select>
+
+        </section>
+
+        <p id="status-message">
+            Loading produk...
+        </p>
+
+        <section
+            id="product-container"
+            class="product-grid"
+        >
+        </section>
+
+        <div class="load-more-container">
+            <button id="load-more-button">
+                Load More
+            </button>
+        </div>
+
+    </main>
+
+</body>
+</html>
