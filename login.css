@@ -1,0 +1,45 @@
+.login-container{
+    width: 400px;
+    margin: 200px 150px;
+}
+
+.login-container h1{
+    font-family:'Times New Roman', Times, serif;
+}
+
+.login-container p{
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.login-form{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-form input{
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    padding: 5px;
+    background-color: rgb(255, 241, 227);
+    border: 1px solid bisque;
+}
+
+.username{
+    display: block;
+
+}
+
+.password{
+    display: block;
+}
+
+.login-form button{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(239, 190, 100);
+    width: 300px;
+    margin-top: 10px;
+    border: 10px solid rgb(239, 190, 100);
+    border-radius: 5px;
+}
