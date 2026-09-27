@@ -1,71 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Catalog</title>
-
+    <title>Katalog Produk - Mini Shopee</title>
     <link rel="stylesheet" href="index.css">
     <script src="index.js" defer></script>
 </head>
 
 <body>
 
-    <nav class="navbar">
-        <div class="logo">Mini Shopee</div>
-
-        <div class="nav-right">
-            <span id="welcome-user"></span>
-
-            <div class="cart">
-                🛒
-                <span id="cart-badge">0</span>
+    <!-- Header & Navigation Bar -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🛍️</span>
+                    <span class="logo-text">Mini Shopee</span>
+                </a>
             </div>
-        </div>
-    </nav>
 
+            <div class="nav-right">
+                <div class="user-greeting">
+                    <span class="avatar-icon">👤</span>
+                    <span id="welcome-user">Halo, Pengguna!</span>
+                </div>
+
+                <!-- Tombol Keranjang -->
+                <button type="button" id="cart-button" class="cart-button" aria-label="Buka Keranjang">
+                    <span class="cart-icon">🛒</span>
+                    <span class="cart-info">
+                        <span class="cart-title">Keranjang</span>
+                        <span id="cart-total" class="cart-total">$0.00</span>
+                    </span>
+                    <span id="cart-badge" class="cart-badge">0</span>
+                </button>
+
+                <!-- Tombol Logout -->
+                <button type="button" id="logout-button" class="logout-btn" title="Keluar dari akun">
+                    Keluar
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
     <main class="container">
 
-        <h1>Product Catalog</h1>
-
-        <section class="controls">
-
-            <input
-                type="text"
-                id="search-input"
-                placeholder="Cari produk atau kategori..."
-            >
-
-            <select id="category-filter">
-                <option value="all">Semua Kategori</option>
-            </select>
-
-            <select id="sort-select">
-                <option value="default">Urutkan</option>
-                <option value="price-low">Harga Termurah</option>
-                <option value="price-high">Harga Termahal</option>
-                <option value="rating">Rating Tertinggi</option>
-            </select>
-
+        <!-- Banner / Hero Section -->
+        <section class="hero-banner">
+            <div class="hero-content">
+                <h1>Katalog Produk Pilihan</h1>
+                <p>Temukan ribuan produk menarik dengan harga spesial dan diskon harian!</p>
+            </div>
         </section>
 
-        <p id="status-message">
-            Loading produk...
-        </p>
+        <!-- Filter, Pencarian, & Urutan Controls -->
+        <section class="controls-card">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Cari nama produk atau kategori..."
+                    aria-label="Cari produk"
+                >
+            </div>
 
+            <div class="filter-controls">
+                <div class="control-group">
+                    <label for="category-filter">Kategori:</label>
+                    <select id="category-filter" aria-label="Filter berdasarkan kategori">
+                        <option value="all">Semua Kategori</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="sort-select">Urutkan:</label>
+                    <select id="sort-select" aria-label="Urutkan produk">
+                        <option value="default">Paling Sesuai</option>
+                        <option value="price-low">Harga: Termurah</option>
+                        <option value="price-high">Harga: Termahal</option>
+                        <option value="rating">Rating Tertinggi</option>
+                    </select>
+                </div>
+
+                <button type="button" id="reset-filter-btn" class="reset-filter-btn">
+                    Reset Filter
+                </button>
+            </div>
+        </section>
+
+        <!-- Informasi Jumlah Produk & Status -->
+        <div class="status-bar">
+            <div id="products-count" class="products-count"></div>
+            <div id="status-message" class="status-message">Loading produk...</div>
+        </div>
+
+        <!-- Global Error Container (Jika Fetch Gagal) -->
+        <div id="error-container" class="error-container" style="display: none;">
+            <div class="error-card">
+                <span class="error-icon-big">📡</span>
+                <h3>Gagal Memuat Produk</h3>
+                <p id="error-description">Terjadi kendala saat mengambil data produk dari server.</p>
+                <button type="button" id="retry-button" class="retry-btn">Coba Lagi</button>
+            </div>
+        </div>
+
+        <!-- Grid Produk (Event Delegation Target) -->
         <section
             id="product-container"
             class="product-grid"
         >
         </section>
 
+        <!-- Load More Pagination Button -->
         <div class="load-more-container">
-            <button id="load-more-button">
-                Load More
+            <button type="button" id="load-more-button" style="display: none;">
+                Tampilkan Lebih Banyak
             </button>
         </div>
 
     </main>
+
+    <!-- Modal Detail Produk (Ditampilkan saat Card Produk Diklik via Event Delegation) -->
+    <div id="product-modal" class="modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        <div class="modal-dialog">
+            <button type="button" class="modal-close" id="modal-close" aria-label="Tutup detail produk">&times;</button>
+            <div id="modal-body" class="modal-body">
+                <!-- Konten detail produk akan di-render secara dinamis -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Drawer Keranjang Belanja (Local Storage CRUD) -->
+    <div id="cart-modal" class="modal cart-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="cart-heading">
+        <div class="modal-backdrop" id="cart-backdrop"></div>
+        <div class="cart-drawer">
+            <div class="cart-header">
+                <div class="cart-header-title">
+                    <span class="cart-header-icon">🛒</span>
+                    <h2 id="cart-heading">Keranjang Belanja</h2>
+                </div>
+                <button type="button" class="modal-close" id="cart-close" aria-label="Tutup keranjang">&times;</button>
+            </div>
+
+            <div id="cart-items" class="cart-items">
+                <!-- Daftar item keranjang akan di-render secara dinamis -->
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-summary-line">
+                    <span class="summary-label">Total Belanja:</span>
+                    <span id="cart-modal-total" class="summary-value">$0.00</span>
+                </div>
+                <div class="cart-actions">
+                    <button type="button" id="clear-cart-btn" class="clear-cart-btn">Kosongkan Keranjang</button>
+                    <button type="button" id="checkout-btn" class="checkout-btn">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
 
 </body>
 </html>

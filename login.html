@@ -1,38 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Login - Mini Shopee</title>
     <link rel="stylesheet" href="login.css">
     <script src="login.js" defer></script>
 </head>
 <body>
-    <div class="login-container">
-        <h1>Masuk ke akunmu</h1>
-        <p>Gunakan username & password akunmu.</p>
 
-        <form id="login-form" class="login-form">
-            <label for="username" class="username">Username</label>
-            <input
-                type="text"
-                id="username"
-                name="username"
-                required
-            >
-            <br>
-            <label for="password" class="password">Password</label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                required
-            >
-            <br>
-            <button type="submit" id="login-button">Masuk</button>
-        </form>
+    <div class="login-wrapper">
+        <div class="login-header">
+            <div class="brand-logo">
+                <span class="bag-icon">🛍️</span>
+                <span class="brand-name">Mini Shopee</span>
+            </div>
+            <p class="brand-tagline">Tempat belanja online cepat & praktis</p>
+        </div>
 
+        <div class="login-card">
+            <h2>Masuk ke Akun</h2>
+            <p class="login-subtitle">Masukkan username dan password akun Anda</p>
+
+            <!-- Error Banner -->
+            <div id="error-banner" class="error-banner" style="display: none;" role="alert">
+                <span class="error-icon">⚠️</span>
+                <span id="error-message"></span>
+            </div>
+
+            <form id="login-form" class="login-form" novalidate>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Masukkan username Anda"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Masukkan password Anda"
+                            autocomplete="current-password"
+                            required
+                        >
+                        <button type="button" id="toggle-password" class="toggle-password-btn" aria-label="Lihat password">👁️</button>
+                    </div>
+                </div>
+
+                <button type="submit" id="login-button" class="login-btn">
+                    <span id="button-spinner" class="spinner" style="display: none;"></span>
+                    <span id="button-text">Masuk</span>
+                </button>
+            </form>
+
+            <div class="demo-box">
+                <div class="demo-box-header">
+                    <span>💡 <strong>Akun Demo (DummyJSON):</strong></span>
+                </div>
+                <div class="demo-credentials">
+                    <p>Username: <code>emilys</code></p>
+                    <p>Password: <code>emilyspass</code></p>
+                </div>
+                <button type="button" id="fill-demo-btn" class="demo-btn">Gunakan Akun Demo</button>
+            </div>
+        </div>
+
+        <footer class="login-footer">
+            <p>&copy; 2026 Mini Shopee. Tugas Praktikum Pemrograman Web Modul 2.</p>
+        </footer>
     </div>
-    
+
 </body>
 </html>
